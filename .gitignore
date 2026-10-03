@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+
+**pycache**/
+*.py[cod]
+*.pyo
+*.pyd
+
+node_modules/
+dist/
+
+.vscode/

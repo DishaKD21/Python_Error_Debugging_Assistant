@@ -1,0 +1,569 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: #f5f7fb;
+
+  color: #172033;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+  height: 76px;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0 50px;
+}
+
+
+.brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.logo {
+  width: 44px;
+
+  height: 44px;
+
+  border-radius: 11px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #111827;
+
+  font-size: 23px;
+}
+
+
+.brand h1 {
+  margin: 0;
+
+  font-size: 20px;
+}
+
+
+.brand p {
+  margin: 3px 0 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+
+.status {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 8px 13px;
+
+  background: #f0fdf4;
+
+  color: #15803d;
+
+  border: 1px solid #bbf7d0;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.status-dot {
+  width: 7px;
+
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+}
+
+
+/* ================= MAIN ================= */
+
+.container {
+  width: min(
+    900px,
+    calc(100% - 32px)
+  );
+
+  margin: 45px auto;
+}
+
+
+.page-title {
+  margin-bottom: 25px;
+}
+
+
+.page-title h2 {
+  margin: 0;
+
+  font-size: 28px;
+}
+
+
+.page-title p {
+  margin-top: 8px;
+
+  color: #6b7280;
+
+  line-height: 1.6;
+}
+
+
+/* ================= CARD ================= */
+
+.card {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 15px;
+
+  padding: 24px;
+
+  margin-bottom: 20px;
+
+  box-shadow:
+    0 3px 15px
+    rgba(0, 0, 0, 0.03);
+}
+
+
+.section-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+
+.section-header h3 {
+  margin: 0;
+
+  font-size: 17px;
+}
+
+
+.section-header p {
+  margin: 5px 0 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+
+.file-count {
+  padding: 6px 11px;
+
+  background: #eef2ff;
+
+  color: #4338ca;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+/* ================= DROP ZONE ================= */
+
+.drop-zone {
+  min-height: 230px;
+
+  border: 2px dashed #cbd5e1;
+
+  border-radius: 13px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.drop-zone:hover,
+.drop-zone.dragging {
+  border-color: #6366f1;
+
+  background: #f8f8ff;
+}
+
+
+.drop-zone input {
+  display: none;
+}
+
+
+.upload-icon {
+  font-size: 42px;
+
+  margin-bottom: 8px;
+}
+
+
+.drop-zone h3 {
+  margin: 5px 0;
+
+  font-size: 16px;
+}
+
+
+.drop-zone p {
+  margin: 5px;
+
+  color: #9ca3af;
+}
+
+
+.choose-button {
+  padding: 9px 16px;
+
+  border-radius: 8px;
+
+  background: #111827;
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.drop-zone small {
+  margin-top: 12px;
+
+  color: #9ca3af;
+}
+
+
+/* ================= FILE LIST ================= */
+
+.file-list {
+  margin-top: 22px;
+}
+
+
+.file-list-title {
+  font-size: 13px;
+
+  font-weight: 600;
+
+  margin-bottom: 8px;
+
+  color: #374151;
+}
+
+
+.file-item {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 12px 14px;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 9px;
+
+  margin-bottom: 8px;
+
+  background: #ffffff;
+}
+
+
+.file-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.python-icon {
+  width: 35px;
+
+  height: 35px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: #eef2ff;
+
+  color: #4f46e5;
+
+  font-size: 10px;
+
+  font-weight: 800;
+}
+
+
+.file-info strong {
+  display: block;
+
+  font-size: 14px;
+}
+
+
+.file-info span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #9ca3af;
+
+  font-size: 11px;
+}
+
+
+/* ================= REMOVE ================= */
+
+.remove-button {
+  width: 30px;
+
+  height: 30px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  background: #fef2f2;
+
+  color: #dc2626;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+
+.remove-button:hover {
+  background: #fee2e2;
+}
+
+
+/* ================= ADD MORE ================= */
+
+.add-more {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  padding: 8px 12px;
+
+  color: #4f46e5;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+.add-more:hover {
+  text-decoration: underline;
+}
+
+
+.add-more input {
+  display: none;
+}
+
+
+/* ================= TRACEBACK ================= */
+
+textarea {
+  width: 100%;
+
+  min-height: 210px;
+
+  resize: vertical;
+
+  padding: 16px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 10px;
+
+  background: #111827;
+
+  color: #e5e7eb;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  outline: none;
+}
+
+
+textarea:focus {
+  border-color: #6366f1;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(99, 102, 241, 0.1);
+}
+
+
+textarea::placeholder {
+  color: #6b7280;
+}
+
+
+/* ================= DEBUG BUTTON ================= */
+
+.debug-button {
+  width: 100%;
+
+  padding: 15px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: #111827;
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.debug-button:hover {
+  background: #1f2937;
+
+  transform: translateY(-1px);
+}
+
+
+.debug-button:active {
+  transform: translateY(0);
+}
+
+
+.debug-button span {
+  margin-right: 8px;
+}
+
+
+/* ================= INFO ================= */
+
+.info {
+  text-align: center;
+
+  margin-top: 15px;
+
+  color: #9ca3af;
+
+  font-size: 12px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 650px) {
+
+  .header {
+    padding: 0 18px;
+  }
+
+
+  .status {
+    display: none;
+  }
+
+
+  .container {
+    margin: 25px auto;
+  }
+
+
+  .page-title h2 {
+    font-size: 23px;
+  }
+
+
+  .card {
+    padding: 17px;
+  }
+
+
+  .drop-zone {
+    min-height: 200px;
+  }
+
+}
