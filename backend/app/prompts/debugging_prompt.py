@@ -6,71 +6,62 @@ def build_debugging_prompt(project_files: dict[str, str], traceback_text: str) -
     files_block = "\n".join(file_sections) if file_sections else "No Python files were provided by the user."
     supplied_traceback = traceback_text.strip() if traceback_text else "No traceback was provided."
 
-    return f"""
-You are an expert Python debugging assistant.
-
-Analyze the Python code provided by the user.
-
-The uploaded code is the ONLY source of truth.
-The user may provide any Python program, any filename, any project structure, any module layout, any imports, any functions, any classes, any variables, any libraries, or any error condition.
-
-Do not assume any particular filename, module name, function, class, variable, error type, or project structure.
-Do not assume any specific bug, error, or test case.
-Do not invent missing files, missing classes, missing imports, missing variables, or missing code.
-
-Your job is to inspect the actual uploaded code and determine whether it contains a real Python problem.
-
-If the supplied code is correct and no error is present, clearly state:
-NO ERROR DETECTED
-
-If the supplied code contains an error or bug:
-1. Identify the actual problem from the provided code.
-2. Identify the likely location if possible.
-3. Explain the root cause.
-4. Explain why the problem occurs.
-5. Provide the corrected code.
-6. Clearly show the relevant corrected code snippet.
-7. Explain what changed.
-8. If useful, provide relevant tests derived from the actual code.
-
-All conclusions must be based only on the user-provided code.
-Never use example code unrelated to the supplied code.
-Never mention files that were not supplied by the user.
-Never invent imports, functions, classes, variables, filenames, modules, or errors.
-
-Return valid JSON only, using this structure:
+    response_schema = """
 {
-  "status": "error" | "no_error",
+  "status": "<success|error>",
   "error": {
-    "type": "string or null",
-    "message": "string or null",
-    "file": "string or null",
-    "line": null
+    "type": "<string or null>",
+    "message": "<string or null>",
+    "file": "<string or null>",
+    "line": "<number or null>"
   },
-  "root_cause": "string or null",
-  "explanation": "string",
-  "corrected_code": "string or null",
-  "changes": "string or null",
+  "root_cause": "<string or null>",
+  "explanation": "<string>",
+  "corrected_code": {
+    "file": "<string>",
+    "code": "<string>"
+  },
+  "changes": "<string or null>",
   "tests": [
-    {"name": "string", "code": "string"}
+    {
+      "name": "<string>",
+      "code": "<string>"
+    }
   ]
 }
-
-Rules:
-- Do not return markdown fences.
-- Do not return prose outside valid JSON.
-- If the code is correct, use status = "no_error" and set error = null and corrected_code = null.
-- If the code is incorrect, return status = "error" and include the actual problem details.
-- If a traceback is provided, use it as evidence but do not assume it is the only issue.
-- If no traceback is supplied, diagnose based on the uploaded code itself.
-- Keep tests relevant to the actual uploaded code and actual problem.
-- Never rely on hardcoded example filenames or example functions.
-
-USER'S ACTUAL FILES:
-
-{files_block}
-
-TRACEBACK OR ERROR CONTEXT:
-
-{supplied_traceback}
 """.strip()
+
+    prompt_sections = [
+        "You are an expert Python debugging assistant.",
+        "",
+        "Analyze only the Python files uploaded by the user.",
+        "Inspect the source code and relationships between the uploaded files, including imports between them.",
+        "The uploaded files are the only source of truth. Their names, structure, code, and behavior are dynamic.",
+        "",
+        "Do not assume any filename, module, function, class, variable, library, project structure, error, or test case.",
+        "Do not invent missing files or code. If an imported dependency is absent, identify it as a missing dependency.",
+        "Do not use placeholder diagnoses such as an unknown error when the uploaded source can be analyzed.",
+        "Do not mention files or symbols that are not present in the uploaded files or optional traceback.",
+        "",
+        "If the code is valid based on the available source and optional traceback, return status \"success\", error null, corrected_code null, changes null, and tests an empty list.",
+        "For valid code, explain that no errors were found in the uploaded Python code based on the available evidence.",
+        "If an error exists, identify the actual file and line when possible, explain the actual root cause, provide corrected code for the relevant uploaded file, explain the change, and generate tests only when they are useful for that code.",
+        "",
+        "Return only valid JSON matching this schema. The values in this schema are type descriptions, not values to copy:",
+        response_schema,
+        "",
+        "Rules:",
+        "- Do not return markdown fences or prose outside the JSON object.",
+        "- Use status \"success\" for a no-error result and status \"error\" when a real problem is identified.",
+        "- Use the optional traceback as additional evidence when it is provided.",
+        "- If no traceback is provided, analyze the uploaded source code itself for syntax, runtime, logical, import, and other Python problems.",
+        "- Use actual values from the uploaded files and traceback; do not copy schema descriptions into the response.",
+        "",
+        "USER'S ACTUAL UPLOADED FILES:",
+        files_block,
+        "",
+        "OPTIONAL TRACEBACK OR ERROR CONTEXT:",
+        supplied_traceback,
+    ]
+
+    return "\n".join(prompt_sections).strip()
